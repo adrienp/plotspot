@@ -1,39 +1,19 @@
-define(["backbone", "underscore", "./anchor-point", "models/vec2"], function(Backbone, _, AnchorPointView, Vec2) {
-	return Backbone.View.extend({
+define(["./collection", "underscore", "./anchor-point", "models/vec2"], function(CollectionView, _, AnchorPointView, Vec2) {
+	return CollectionView.extend({
 		className: "anchor-points",
 		events: {
 			"mousemove": "drag",
 			"mouseup": "dragEnd"
 		},
 		initialize: function() {
-			this.anchorPoints = [];
+			this.setup(this.$el, AnchorPointView);
 
-			this.collection.each(function(anchor) {
-				this.handleAdd(anchor);
-			});
-
-			this.listenTo(this.collection, "add", this.handleAdd);
-			this.listenTo(this.collection, "remove", this.handleRemove);
+			this.listenTo(this, "addView", this.handleNewView);
 		},
-		handleAdd: function(anchor) {
-			var view = new AnchorPointView({
-				model: anchor
-			});
-
-			this.anchorPoints.push(view);
-
-			this.$el.append(view.$el);
-
+		handleNewView: function(view) {
 			this.listenTo(view, "grab", this.dragStart);
 
 			this.resize();
-		},
-		handleRemove: function(anchor) {
-			var view = _.findWhere(this.anchorPoints, {model: anchor});
-
-			view.remove();
-			// this.anchorPoints[anchor].remove();
-			this.anchorPoints = _.without(this.anchorPoints, view);
 		},
 		dragStart: function(view) {
 			console.log(arguments);
@@ -55,7 +35,7 @@ define(["backbone", "underscore", "./anchor-point", "models/vec2"], function(Bac
 		},
 		resize: function() {
 			var size = this.$el.width();
-			_.each(this.anchorPoints, function(anchor) {
+			_.each(this.items, function(anchor) {
 				anchor.setScale(size);
 			});
 		}

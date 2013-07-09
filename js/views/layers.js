@@ -1,38 +1,17 @@
-define(["jquery", "backbone", "underscore", "./layer"], function($, Backbone, _, LayerView) {
-	return Backbone.View.extend({
+define(["jquery", "./collection", "underscore", "./layer"], function($, CollectionView, _, LayerView) {
+	return CollectionView.extend({
 		className: "layers",
 		initialize: function() {
-			this.layers = [];
+			this.setup(this.$el, LayerView);
 
-			this.collection.each(function(layer) {
-				this.handleAdd(layer);
-			});
-
-			this.listenTo(this.collection, "add", this.handleAdd);
-			this.listenTo(this.collection, "remove", this.handleRemove);
+			this.listenTo(this, "addView", this.handleNewView);
 
 			$(window).on("resize", _.bind(this.resize, this));
 
 			this.resize();
 		},
-		handleAdd: function(layer) {
-			var view = new LayerView({
-				model: layer
-			});
-
-			this.layers.push(view);
-
-			this.$el.append(view.$el);
-
+		handleNewView: function(view) {
 			view.resize();
-		},
-		handleRemove: function(layer) {
-			// this.layers[layer].remove();
-			// delete this.layers[layer];
-
-			var view = _.findWhere(this.layers, {model: layer});
-			view.remove();
-			this.layers = _.without(this.layers, view);
 		},
 		resize: function() {
 			var $board = $(".board");
@@ -51,7 +30,7 @@ define(["jquery", "backbone", "underscore", "./layer"], function($, Backbone, _,
 				height: size
 			});
 
-			_.each(this.layers, function(layer) {
+			_.each(this.items, function(layer) {
 				layer.resize();
 			});
 		}
