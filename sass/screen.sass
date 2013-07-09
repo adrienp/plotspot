@@ -1,0 +1,70 @@
+// Welcome to Compass.
+// In this file you should write your main styles. (or centralize your imports)
+// Import this file using the following HTML or equivalent:
+// <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+
+@import compass/reset
+
+.controls
+	position: absolute
+	top: 0
+	bottom: 0
+	left: 0
+	width: 200px
+	background-color: #ddd
+
+.board
+	position: absolute
+	top: 0
+	bottom: 0
+	right: 0
+	left: 200px
+	background-color: #eee
+
+.layers
+	width: 400px
+	height: 400px
+	background-color: white
+	position: relative
+
+.layer
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	position: absolute
+
+.layer-canvas
+	// top: 0
+	// bottom: 0
+	// left: 0
+	// right: 0
+	width: 100%
+	height: 100%
+	position: absolute
+
+.anchor-points
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	position: absolute
+
+.anchor-point
+	width: 6px
+	height: 6px
+	border-radius: 3px
+	background-color: blue
+	margin: -3px
+	position: absolute
+
+	&:hover
+		cursor: pointer
+
+	&.selected
+		background-color: red
+
+.anchor-list-item
+	&.selected
+		background-color: yellow
