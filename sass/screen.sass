@@ -4,22 +4,26 @@
 // <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
 
-@import compass/reset
+// @import compass/reset
 
 .controls
 	position: absolute
 	top: 0
 	bottom: 0
 	left: 0
-	width: 200px
+	width: 300px
 	background-color: #ddd
+	overflow-y: scroll
+	padding: 5px
+	input
+		width: 50px
 
 .board
 	position: absolute
 	top: 0
 	bottom: 0
 	right: 0
-	left: 200px
+	left: 300px
 	background-color: #eee
 
 .layers
@@ -72,3 +76,9 @@
 .anchor-list-item
 	&.selected
 		background-color: yellow
+
+	input
+		width: 50px
+
+	.delete
+		padding: 0.5em 0.7em
