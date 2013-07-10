@@ -20,23 +20,20 @@ define(["backbone", "handlebars", "text!templates/layer-list-item.html", "./anch
 			});
 
 			this.update();
+
+			this.listenTo(this.model.get("colorStops"), "change", this.render);
 		},
 		update: function() {
-			this.model.get("colorStops").reset();
-
 			var radius = Number(this.$(".radius-input").val());
 			var thickness = Number(this.$(".thickness-input").val());
+			var color = Vec4.fromHex(this.$(".color-input").val());
 
-			this.model.get("colorStops").add([{
-				distance: radius - thickness/2,
-				color: new Vec4(0, 0, 0, 0)
-			}, {
-				distance: radius,
-				color: new Vec4(0, 0, 0, 1)
-			}, {
-				distance: radius + thickness/2,
-				color: new Vec4(0, 0, 0, 0)
-			}]);
+			this.model.get("colorStops").setRadius(radius, thickness, color);
+		},
+		render: function() {
+			this.$(".radius-input").val(this.model.get("colorStops").radius);
+			this.$(".thickness-input").val(this.model.get("colorStops").thickness);
+			this.$(".color-input").val(this.model.get("colorStops").color.toHex());
 		}
 	});
 });

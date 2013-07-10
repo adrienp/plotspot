@@ -3,7 +3,8 @@ define(["./collection", "underscore", "./anchor-point", "models/vec2"], function
 		className: "anchor-points",
 		events: {
 			"mousemove": "drag",
-			"mouseup": "dragEnd"
+			"mouseup": "dragEnd",
+			"dblclick": "newAnchor"
 		},
 		initialize: function() {
 			this.setup(this.$el, AnchorPointView);
@@ -16,27 +17,37 @@ define(["./collection", "underscore", "./anchor-point", "models/vec2"], function
 			this.resize();
 		},
 		dragStart: function(view) {
-			console.log(arguments);
 			this.dragging = view;
+			this.$el.toggleClass("dragging", true);
 		},
 		drag: function(e) {
 			if (this.dragging) {
-				var offset = this.$el.offset();
-				var height = this.$el.height();
-				var point = new Vec2((e.pageX - offset.left) / height, (height - (e.pageY - offset.top)) / height);
-				this.dragging.moveTo(point);
+				this.dragging.moveTo(this.mousePoint(e));
+				e.stopPropagation();
 			}
 		},
 		dragEnd: function(e) {
 			if (this.dragging) {
 				this.dragging.drop();
 				delete this.dragging;
+				this.$el.toggleClass("dragging", false);
+				e.stopPropagation();
 			}
 		},
 		resize: function() {
 			var size = this.$el.width();
 			_.each(this.items, function(anchor) {
 				anchor.setScale(size);
+			});
+		},
+		mousePoint: function(e) {
+			var offset = this.$el.offset();
+			var height = this.$el.height();
+			return new Vec2((e.pageX - offset.left) / height, (height - (e.pageY - offset.top)) / height);
+		},
+		newAnchor: function(e) {
+			this.collection.add({
+				point: this.mousePoint(e)
 			});
 		}
 	});

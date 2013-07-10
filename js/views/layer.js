@@ -1,9 +1,13 @@
-define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.html", "glsl", "text!./plot.frag", "./anchor-points"], function($, _, Backbone, Handlebars, layerTemplate, Glsl, plotFragment, AnchorPointsView) {
+define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.html", "glsl", "text!./plot.frag", "./anchor-points", "models/vec2"], function($, _, Backbone, Handlebars, layerTemplate, Glsl, plotFragment, AnchorPointsView, Vec2) {
 	return Backbone.View.extend({
 		className: "layer",
 		template: Handlebars.compile(layerTemplate),
 		events: {
-			"resize": "resize"
+			"resize": "resize",
+			"mousedown": "mousedown",
+			"mouseup": "mouseup",
+			"mousemove": "mousemove",
+			"mousewheel": "scroll"
 		},
 		render: function() {
 			this.glsl.variables = this.makeGlslVariables();
@@ -83,6 +87,31 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.
 			this.render();
 
 			this.anchorPoints.resize();
+		},
+		mousePoint: function(e) {
+			var offset = this.$el.offset();
+			var height = this.$el.height();
+			return new Vec2((e.pageX - offset.left) / height, (height - (e.pageY - offset.top)) / height);
+		},
+		mousedown: function(e) {
+			this.dragging = true;
+			this.mousemove(e);
+			e.preventDefault();
+		},
+		mousemove: function(e) {
+			if (this.dragging) {
+				var point = this.mousePoint(e);
+				var dist = this.model.get("anchors").distance(point);
+				this.model.get("colorStops").setRadius(dist);
+			}
+		},
+		mouseup: function(e) {
+			this.dragging = false;
+		},
+		scroll: function(e) {
+			var delta = - e.originalEvent.wheelDeltaY;
+			this.model.get("colorStops").setRadius(this.model.get("colorStops").radius + delta / 1000);
+			e.preventDefault();
 		}
 	});
 });

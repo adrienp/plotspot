@@ -4,7 +4,9 @@ define(["backbone"], function(Backbone) {
 		events: {
 			"mousedown": "grab",
 			"mouseover": "over",
-			"mouseout": "out"
+			"mouseout": "out",
+			"dblclick": "destroy",
+			"mousewheel": "scroll"
 		},
 		scale: 1,
 		render: function() {
@@ -26,6 +28,8 @@ define(["backbone"], function(Backbone) {
 			// console.log(this);
 			this.trigger("grab", this);
 			this.model.set("_dragging", true);
+			e.stopPropagation();
+			e.preventDefault();
 		},
 		moveTo: function(point) {
 			// console.log(point);
@@ -43,6 +47,16 @@ define(["backbone"], function(Backbone) {
 		setScale: function(scale) {
 			this.scale = scale;
 			this.render();
+		},
+		destroy: function(e) {
+			this.model.destroy();
+			e.stopPropagation();
+		},
+		scroll: function(e) {
+			var delta = - e.originalEvent.wheelDeltaY;
+			this.model.set("multiplier", this.model.get("multiplier") + delta / 1000);
+			e.preventDefault();
+			e.stopPropagation();
 		}
 	});
 })

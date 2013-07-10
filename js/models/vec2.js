@@ -12,5 +12,9 @@ define([], function() {
 		return new Vec2(this.x * scalar, this.y * scalar);
 	};
 
+	Vec2.prototype.distance = function(other) {
+		return Math.sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y) * (this.y - other.y));
+	};
+
 	return Vec2;
 });
