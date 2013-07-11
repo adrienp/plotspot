@@ -11,7 +11,7 @@ define(["./collection", "handlebars", "text!templates/anchor-list.html", "./anch
 		},
 		addAnchor: function() {
 			this.collection.add({
-				point: new Vec2(200, 200)
+				point: new Vec2(0.5, 0.5)
 			});
 		}
 	});

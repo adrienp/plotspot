@@ -1,5 +1,5 @@
-define(["backbone", "./vec2"], function(Backbone, Vec2) {
-	return Backbone.Model.extend({
+define(["./model", "./vec2"], function(Model, Vec2) {
+	return Model.extend({
 		defaults: {
 			multiplier: 1,
 			point: new Vec2(0, 0),

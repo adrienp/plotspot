@@ -1,26 +1,106 @@
-/* line 9, ../sass/screen.sass */
+/* line 1, ../sass/pure-extend.sass */
+.pure-button-success,
+.pure-button-error,
+.pure-button-warning,
+.pure-button-secondary {
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* line 9, ../sass/pure-extend.sass */
+.pure-button-success {
+  background: #1cb841;
+}
+
+/* line 12, ../sass/pure-extend.sass */
+.pure-button-error {
+  background: #ca3c3c;
+}
+
+/* line 15, ../sass/pure-extend.sass */
+.pure-button-warning {
+  background: #df7514;
+}
+
+/* line 18, ../sass/pure-extend.sass */
+.pure-button-secondary {
+  background: #42b8dd;
+}
+
+/* line 10, ../sass/screen.sass */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* line 13, ../sass/screen.sass */
+/* line 14, ../sass/screen.sass */
 .controls {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 300px;
+  width: 290px;
   background-color: #dddddd;
   overflow-y: scroll;
   padding: 5px;
 }
-/* line 22, ../sass/screen.sass */
+/* line 24, ../sass/screen.sass */
 .controls input {
-  width: 50px;
+  width: 80px;
+}
+/* line 27, ../sass/screen.sass */
+.controls input[type=color] {
+  padding: 0.1em;
+}
+/* line 31, ../sass/screen.sass */
+.controls .layer-design-form label {
+  width: 5em;
 }
 
-/* line 25, ../sass/screen.sass */
+/* line 34, ../sass/screen.sass */
+.layer-list-items {
+  padding: 0;
+  list-style-type: none;
+}
+
+/* line 39, ../sass/screen.sass */
+.layer-list-item .title {
+  cursor: pointer;
+}
+/* line 42, ../sass/screen.sass */
+.layer-list-item .caret:before {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+/* line 46, ../sass/screen.sass */
+.layer-list-item .layer-details {
+  display: none;
+}
+/* line 49, ../sass/screen.sass */
+.layer-list-item.active {
+  background-color: cyan;
+}
+/* line 52, ../sass/screen.sass */
+.layer-list-item.active .caret:before {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+/* line 54, ../sass/screen.sass */
+.layer-list-item.active .layer-details {
+  display: block;
+}
+
+/* line 57, ../sass/screen.sass */
 .board {
   position: absolute;
   top: 0;
@@ -30,7 +110,7 @@
   background-color: #eeeeee;
 }
 
-/* line 33, ../sass/screen.sass */
+/* line 65, ../sass/screen.sass */
 .layers {
   width: 400px;
   height: 400px;
@@ -39,23 +119,36 @@
   overflow: hidden;
 }
 
-/* line 40, ../sass/screen.sass */
+/* line 72, ../sass/screen.sass */
 .layer {
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   position: absolute;
+  z-index: 0;
+}
+/* line 80, ../sass/screen.sass */
+.layer .anchor-points {
+  display: none;
+}
+/* line 83, ../sass/screen.sass */
+.layer.active {
+  z-index: 1;
+}
+/* line 85, ../sass/screen.sass */
+.layer.active .anchor-points {
+  display: block;
 }
 
-/* line 47, ../sass/screen.sass */
+/* line 88, ../sass/screen.sass */
 .layer-canvas {
   width: 100%;
   height: 100%;
   position: absolute;
 }
 
-/* line 56, ../sass/screen.sass */
+/* line 97, ../sass/screen.sass */
 .anchor-points {
   top: 0;
   bottom: 0;
@@ -65,12 +158,12 @@
   margin: 0;
   padding: 0;
 }
-/* line 65, ../sass/screen.sass */
+/* line 106, ../sass/screen.sass */
 .anchor-points.dragging {
   cursor: pointer;
 }
 
-/* line 68, ../sass/screen.sass */
+/* line 109, ../sass/screen.sass */
 .anchor-point {
   width: 8px;
   height: 8px;
@@ -79,24 +172,24 @@
   margin: -4px;
   position: absolute;
 }
-/* line 76, ../sass/screen.sass */
+/* line 117, ../sass/screen.sass */
 .anchor-point:hover {
   cursor: pointer;
 }
-/* line 79, ../sass/screen.sass */
+/* line 120, ../sass/screen.sass */
 .anchor-point.selected {
   background-color: red;
 }
 
-/* line 83, ../sass/screen.sass */
+/* line 123, ../sass/screen.sass */
+.anchor-list-item {
+  margin: 4px 0;
+}
+/* line 126, ../sass/screen.sass */
 .anchor-list-item.selected {
   background-color: yellow;
 }
-/* line 86, ../sass/screen.sass */
-.anchor-list-item input {
-  width: 50px;
-}
-/* line 89, ../sass/screen.sass */
+/* line 129, ../sass/screen.sass */
 .anchor-list-item .delete {
-  padding: 0.5em 0.7em;
+  padding: 0.2em 0.4em;
 }

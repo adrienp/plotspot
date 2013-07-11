@@ -4,10 +4,11 @@ define(["backbone", "handlebars", "text!templates/layer-list-item.html", "./anch
 		tagName: "li",
 		template: Handlebars.compile(layerListItemTemplate),
 		events: {
+			"click .title": "select",
 			"change input": "update"
 		},
 		initialize: function() {
-			var model = this.model.toJSON();
+			var model = this.model.render();
 
 			model.radius = 0.7;
 			model.thickness = 0.01;
@@ -22,6 +23,7 @@ define(["backbone", "handlebars", "text!templates/layer-list-item.html", "./anch
 			this.update();
 
 			this.listenTo(this.model.get("colorStops"), "change", this.render);
+			this.listenTo(this.model, "change", this.render);
 		},
 		update: function() {
 			var radius = Number(this.$(".radius-input").val());
@@ -31,9 +33,22 @@ define(["backbone", "handlebars", "text!templates/layer-list-item.html", "./anch
 			this.model.get("colorStops").setRadius(radius, thickness, color);
 		},
 		render: function() {
-			this.$(".radius-input").val(this.model.get("colorStops").radius);
-			this.$(".thickness-input").val(this.model.get("colorStops").thickness);
+			this.$el.toggleClass("active", this.model.get("_active") || false);
+			this.$(".radius-input").val(Math.round(this.model.get("colorStops").radius * 1000) / 1000);
+			this.$(".thickness-input").val(Math.round(this.model.get("colorStops").thickness * 1000) / 1000);
 			this.$(".color-input").val(this.model.get("colorStops").color.toHex());
+		},
+		select: function() {
+			if (this.model.get("_active")) {
+				this.model.set("_active", false);
+			}
+			else {
+				this.model.collection.forEach(function(layer) {
+					layer.set("_active", false);
+				});
+				this.model.set("_active", true);
+			}
+			
 		}
 	});
 });

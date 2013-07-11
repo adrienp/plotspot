@@ -43,7 +43,7 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.
 			};
 		},
 		initialize: function() {
-			this.$el.html(this.template(this.model.attributes));
+			this.$el.html(this.template(this.model.render()));
 
 			this.anchorPoints = new AnchorPointsView({
 				collection: this.model.get("anchors"),
@@ -60,21 +60,14 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.
 
 			this.handleActive();
 
-			this.listenTo(this.model, "change:active", this.handleActive);
+			this.listenTo(this.model, "change:_active", this.handleActive);
 			this.listenTo(this.model.get("anchors"), "all", this.render);
 			this.listenTo(this.model.get("colorStops"), "all", this.render);
 			
 			this.resize();
 		},
 		handleActive: function() {
-			// if (this.model.get("active")) {
-			// 	this.glsl.start();
-			// }
-			// else {
-			// 	this.glsl.stop();
-			// }
-
-			this.$el.toggleClass("active", this.model.get("active"));
+			this.$el.toggleClass("active", this.model.get("_active") || false);
 		},
 		resize: function() {
 			var size = this.$el.width();
@@ -94,9 +87,11 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.
 			return new Vec2((e.pageX - offset.left) / height, (height - (e.pageY - offset.top)) / height);
 		},
 		mousedown: function(e) {
-			this.dragging = true;
-			this.mousemove(e);
-			e.preventDefault();
+			if (this.model.get("_active")) {
+				this.dragging = true;
+				this.mousemove(e);
+				e.preventDefault();
+			}
 		},
 		mousemove: function(e) {
 			if (this.dragging) {
@@ -110,7 +105,8 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/layer.
 		},
 		scroll: function(e) {
 			var delta = - e.originalEvent.wheelDeltaY;
-			this.model.get("colorStops").setRadius(this.model.get("colorStops").radius + delta / 1000);
+			var val = (this.model.get("colorStops").radius * 1000 + delta) / 1000;
+			this.model.get("colorStops").setRadius(val);
 			e.preventDefault();
 		}
 	});

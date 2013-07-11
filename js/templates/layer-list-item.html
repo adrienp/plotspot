@@ -1,6 +1,21 @@
-<h2>Anchor Points:</h2>
-<div class="anchor-list"></div>
-<h2>Design:</h2>
-Radius: <input class="radius-input" step="0.05" type="number" name="radius" value="{{radius}}"></input><br />
-Thickness: <input class="thickness-input" step="0.005" min="0" type="number" name="thickness" value="{{thickness}}"></input><br />
-Color: <input class="color-input" type="color" name="color"></input>
+<h1 class="title"><i class="caret icon-caret-right"></i> {{name}}</h1>
+<div class="layer-details">
+	<div class="anchor-list"></div>
+	<form class="layer-design-form pure-form pure-form-aligned">
+		<h2>Design:</h2>
+		<fieldset>
+			<div class="pure-control-group">
+				<label for="radius-{{id}}">Radius:</label>
+				<input id="radius-{{id}}" class="radius-input" step="0.05" type="number" name="radius" value="{{radius}}"></input>
+			</div>
+			<div class="pure-control-group">
+				<label for="thickness-{{id}}">Thickness:</label>
+				<input id="thickness-{{id}}" class="thickness-input" step="0.005" min="0" type="number" name="thickness" value="{{thickness}}"></input>
+			</div>
+			<div class="pure-control-group">
+				<label for="color-{{id}}">Color:</label>
+				<input id="color-{{id}}" class="color-input" type="color" name="color"></input>
+			</div>
+		</fieldset>
+	</form>
+</div>

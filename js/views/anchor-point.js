@@ -54,7 +54,8 @@ define(["backbone"], function(Backbone) {
 		},
 		scroll: function(e) {
 			var delta = - e.originalEvent.wheelDeltaY;
-			this.model.set("multiplier", this.model.get("multiplier") + delta / 1000);
+			var val = (this.model.get("multiplier") * 1000 + delta) / 1000;
+			this.model.set("multiplier", val);
 			e.preventDefault();
 			e.stopPropagation();
 		}

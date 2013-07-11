@@ -40,8 +40,10 @@ require(["views/layer", "models/layer", "models/anchor-point", "models/color-sto
 		el: document.body
 	});
 
-	layer = new Layer();
-	drawing.get("layers").add(layer);
+	// layer = new Layer({
+	// 	name: "Layer 1"
+	// });
+	// drawing.get("layers").add(layer);
 	// layerView = new LayerView({
 	// 	model: layer
 	// });
@@ -49,11 +51,11 @@ require(["views/layer", "models/layer", "models/anchor-point", "models/color-sto
 	// $(".layer-drawing-view").append(layerView.$el);
 
 
-	layer.get("anchors").add([new AnchorPoint({
-		point: new Vec2(0.3, 0.5)
-	}), new AnchorPoint({
-		point: new Vec2(0.7, 0.5)
-	})]);
+	// layer.get("anchors").add([new AnchorPoint({
+	// 	point: new Vec2(0.3, 0.5)
+	// }), new AnchorPoint({
+	// 	point: new Vec2(0.7, 0.5)
+	// })]);
 
 	// layer.get("colorStops").add([new ColorStop({
 	// 	distance: 200,

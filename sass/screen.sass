@@ -4,7 +4,8 @@
 // <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
 
-// @import compass/reset
+@import compass/css3
+@import pure-extend
 
 *
 	margin: 0
@@ -15,12 +16,43 @@
 	top: 0
 	bottom: 0
 	left: 0
-	width: 300px
+	width: 290px
 	background-color: #ddd
 	overflow-y: scroll
 	padding: 5px
+	
 	input
-		width: 50px
+		width: 80px
+
+		&[type=color]
+			padding: 0.1em
+
+	.layer-design-form
+		label
+			width: 5em
+
+.layer-list-items
+	padding: 0
+	list-style-type: none
+
+.layer-list-item
+	.title
+		cursor: pointer
+
+	.caret:before
+		@include transition-property(transform)
+		@include transition-duration(0.5s)
+
+	.layer-details
+		display: none
+
+	&.active
+		background-color: cyan
+
+		.caret:before
+			@include rotate(90deg)
+		.layer-details
+			display: block
 
 .board
 	position: absolute
@@ -43,6 +75,15 @@
 	left: 0
 	right: 0
 	position: absolute
+	z-index: 0
+
+	.anchor-points
+		display: none
+
+	&.active
+		z-index: 1
+		.anchor-points
+			display: block
 
 .layer-canvas
 	// top: 0
@@ -80,11 +121,10 @@
 		background-color: red
 
 .anchor-list-item
+	margin: 4px 0
+
 	&.selected
 		background-color: yellow
 
-	input
-		width: 50px
-
 	.delete
-		padding: 0.5em 0.7em
+		padding: 0.2em 0.4em

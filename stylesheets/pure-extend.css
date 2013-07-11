@@ -1,0 +1,29 @@
+/* line 1, ../sass/pure-extend.sass */
+.pure-button-success,
+.pure-button-error,
+.pure-button-warning,
+.pure-button-secondary {
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* line 9, ../sass/pure-extend.sass */
+.pure-button-success {
+  background: #1cb841;
+}
+
+/* line 12, ../sass/pure-extend.sass */
+.pure-button-error {
+  background: #ca3c3c;
+}
+
+/* line 15, ../sass/pure-extend.sass */
+.pure-button-warning {
+  background: #df7514;
+}
+
+/* line 18, ../sass/pure-extend.sass */
+.pure-button-secondary {
+  background: #42b8dd;
+}
