@@ -1,12 +1,16 @@
 requirejs.config({
 	paths: {
-		"jquery": "libs/jquery-2.0.2",
-		"handlebars": "libs/handlebars",
+		// "jquery": "libs/jquery-2.0.2",
+		// "handlebars": "libs/handlebars",
+		// "glsl": "libs/glsl",
+		// "underscore": "libs/underscore",
+		// "backbone": "libs/backbone"
+
+		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min",
+		"handlebars": "//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min",
 		"glsl": "libs/glsl",
-		"ember": "libs/ember-1.0.0-rc.6",
-		"data": "libs/ember-data-0.13",
-		"underscore": "libs/underscore",
-		"backbone": "libs/backbone"
+		"underscore": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.0/underscore-min",
+		"backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min"
 	},
 	shim: {
 		"handlebars": {
@@ -14,14 +18,6 @@ requirejs.config({
 		},
 		"glsl": {
 			exports: "Glsl"
-		},
-		"ember": {
-			deps: ["jquery", "handlebars"],
-			exports: "Ember"
-		},
-		"data": {
-			deps: ["ember"],
-			exports: "DS"
 		},
 		"underscore": {
 			exports: "_"
